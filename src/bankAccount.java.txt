@@ -1,0 +1,36 @@
+class BankAccount {
+    private int balance;
+    private int creditLimit;  
+
+
+    public BankAccount(int balance, int creditLimit) {
+        this.balance = balance;
+        this.creditLimit = creditLimit;
+    }
+
+    public boolean withdraw(int amount) {
+        if (balance - amount < creditLimit) {
+            return false; 
+        }
+        balance -= amount;
+        return true;
+    }
+
+
+    public void deposit(int amount) {
+        balance += amount;
+    }
+
+
+    public boolean transfer(BankAccount target, int amount) {
+        if (withdraw(amount)) {
+            target.deposit(amount);
+            return true;
+        }
+        return false; 
+    }
+
+    public double getBalance() {
+        return balance;
+    }
+}
