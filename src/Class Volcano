@@ -1,0 +1,75 @@
+public class Volcano{ 
+	private String name; 
+	private int [] degrees; 
+	private int count; 
+	
+	public String getName(){ 
+		return (this.name); 
+	} 
+	public int getCount() { 
+		return(this.count); 
+	}
+	public Volcano(String name, int size){ 
+		this.name = name; 
+		degrees = new int[size]; 
+		this.count = 0; 
+	} 
+	public Volcano(Volcano v){ 
+		this.name = v.name; 
+		this.count = v.count; 
+		this.degrees = new int[v1.degrees.length]
+			for (i=0; i<v.count();i++)
+				degrees [i] = v.degrees[i];
+	}
+	public boolean add(int degree) {
+		if (count<degrees.length) {
+	///		degrees[count + 1]=degree;
+			return true;
+		}
+			return false;
+	}
+	public void delete(int index) {
+		if (index >= 0 && index<count) {
+            for (int i = index; i < count - 1; i++) {
+                degrees[i] = degrees[i + 1];
+            }
+            count--;
+		}
+	}
+	public void deleteAll() {
+		count = 0;
+	}
+	
+	public void fix(int index, int degree) {
+		degrees[index]= degree;
+	}
+	public double average() {
+		double sum = 0;
+		for (int i=0; i<count;i++) {
+			sum +=degrees[i];
+		}
+		return ((double)(sum/count));				
+	}
+	
+    public int maxUnder(int x) {
+        int maxIndex = 0;
+        int maxValue = 0;
+        for (int i = 0; i < count; i++) {
+            if (degrees[i] < x && degrees[i] > maxValue) {
+                maxValue = degrees[i];
+                maxIndex = i;
+            }
+        }
+        return maxIndex;
+    }
+    
+    public void print() {
+    	for (int i=0; i< count; i++) {
+    		System.out.println((i + 1)  + ") " + degrees[i]);
+    	}
+    }
+    public String toString() {
+    	 return "Volcano Name: " + name + ", Measurements Count: " + count + ", Array Size: " + degrees.length;
+    }
+   
+}
