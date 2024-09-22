@@ -1,0 +1,10 @@
+Class Main{
+
+
+	circle c1 = new circle(5);
+	circle c2 = new circle(7.2);
+
+	System.out.println("the area of circle 1 is: " + c1.circleArea());
+	System.out.println("the area of circle 2 is: " + c2.circleArea());
+
+}
