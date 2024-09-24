@@ -1,0 +1,48 @@
+import java.util.Random;
+
+public class Main {
+    public static void main(String[] args) {
+        Volcano volcano = new Volcano("הר הגעש", 10);
+        
+        Random rand = new Random();
+        
+        for (int i = 0; i < 7; i++) {
+            int randomTemperature = rand.nextInt(2001); // טמפרטורה אקראית בין 0 ל-2000
+            volcano.add(randomTemperature);
+        }
+
+        System.out.println("מספר המדידות: " + volcano.getCount());
+
+        System.out.println("שם הר הגעש: " + volcano.getName());
+
+        System.out.println("המדידות:");
+        volcano.print();
+
+        System.out.println("ממוצע הטמפרטורות: " + volcano.average());
+
+        int x = 1500;
+        int maxIndex = volcano.maxUnder(x);
+        if (maxIndex != -1) {
+            System.out.println("הטמפרטורה המקסימלית מתחת ל-" + x + " היא " + volcano.getDegrees()[maxIndex] + " באינדקס " + maxIndex);
+        } else {
+            System.out.println("אין טמפרטורה מתחת ל-" + x);
+        }
+
+        if (volcano.getCount() > 2) {
+            volcano.fix(2, 1234);
+            System.out.println("לאחר תיקון, המדידות:");
+            volcano.print();
+        }
+
+        if (volcano.getCount() > 3) {
+            volcano.delete(3);
+            System.out.println("לאחר מחיקת מדידה באינדקס 3, המדידות:");
+            volcano.print();
+        }
+
+        volcano.deleteAll();
+        System.out.println("לאחר מחיקת כל המדידות, מספר המדידות: " + volcano.getCount());
+
+        System.out.println(volcano.toString());
+    }
+}
