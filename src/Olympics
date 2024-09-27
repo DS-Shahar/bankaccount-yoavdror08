@@ -1,0 +1,44 @@
+public class Athlete {
+	public Athlete(){
+		private String Name;
+		private Grade [] grades;
+		private int Count;
+	}
+	public Athlete() {
+		this.Name = Name
+		this.grades = [];
+		this.Count = count;
+	}                                                  
+}
+
+
+
+
+public class Grade {
+	
+	public Grade(){
+		private String Apparatus;
+		private int Score;
+		public Grade(String apparatus, int score) {
+			this.Apparatus = apparatus;
+			this.Score = score;
+		}
+		public Grade(Grade g) {
+			this.Apparatus = Apparatus;
+			this.Score = Score;
+		}
+		public String getApparatus(){
+			return Apparatus;
+		}
+		public void setAapparatus() {
+			this.Apparatus = Apparatus;
+		}
+		public int getScore() {
+			return Score;
+		}
+		public void setScore() {
+			this.Score =Score;
+		}		
+}
+		
+		
