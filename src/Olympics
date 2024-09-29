@@ -1,43 +1,98 @@
+
 public class Athlete {
-	public Athlete(){
-		private String Name;
-		private Grade [] grades;
-		private int Count;
+	private String name;
+	private Grade [] grades;
+	private int count;
+	
+	
+	public Athlete(String name, int count) {
+		this.name = name;
+		this.count = count;
+		int [] newArr = new int [count];	
+	} 
+	public Athlete(Athlete v){ 
+		this.name = v.name; 
+		this.count = v.count; 
+//		this.grades = new int[v1.grades.length]; ****
+		for (i=0; i<v.count();i++)
+			grades [i] = v.grades[i];
 	}
-	public Athlete() {
-		this.Name = Name
-		this.grades = [];
-		this.Count = count;
-	}                                                  
+	public Boolean addGrade(String apparatus, int score) {
+		if (this.count < this.grades.length){
+			this.grades[count] = new Grade(apparatus,score);
+			return true;
+		}
+		else return false;		
+	}
+	public boolean deleteGrade(String apparatus){
+		for (int i=0;i<count;i++) {
+			if (this.grades[i].equals(apparatus))
+					return true;
+		}
+		return false;
+	}
+	
+	public double average(int score) {
+		double sum = 0;
+		if (count == 0)
+			return -1;
+		for (int i=0;i<count;i++) {
+			sum += grades[i].getScore();
+		}
+		return sum/count;
+	}
+	
+	public boolean allGradesAbove(int num1) {
+		for (int i=0;i<count;i++) {
+			if (grades[i].getScore()<num1)
+				return false;
+		}
+		return true;	
+	}
+	public boolean isBetter(Athlete v) {
+		for (int i=0;i<count;i++) {
+			
+		}
+		
 }
+
+
+
+
+
+
+
+
+
 
 
 
 
 public class Grade {
 	
-	public Grade(){
-		private String Apparatus;
-		private int Score;
+	public Grade() 
+		private String apparatus;
+		private int score;
 		public Grade(String apparatus, int score) {
-			this.Apparatus = apparatus;
-			this.Score = score;
+			this.apparatus = apparatus;
+			this.score = score;
 		}
+		
 		public Grade(Grade g) {
-			this.Apparatus = Apparatus;
-			this.Score = Score;
+			this.apparatus = apparatus;
+			this.score = score;
 		}
 		public String getApparatus(){
-			return Apparatus;
+			return apparatus;
 		}
 		public void setAapparatus() {
-			this.Apparatus = Apparatus;
+			this.apparatus = apparatus;
 		}
 		public int getScore() {
-			return Score;
+			return score;
 		}
 		public void setScore() {
-			this.Score =Score;
+			this.score =score;
 		}		
 }
 		
