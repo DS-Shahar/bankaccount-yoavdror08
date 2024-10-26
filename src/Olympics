@@ -1,67 +1,87 @@
 
 public class Athlete {
-	private String name;
-	private Grade [] grades;
-	private int count;
-	
-	
-	public Athlete(String name, int count) {
-		this.name = name;
-		this.count = count;
-		int [] newArr = new int [count];	
-	} 
-	public Athlete(Athlete v){ 
-		this.name = v.name; 
-		this.count = v.count; 
-//		this.grades = new int[v1.grades.length]; ****
-		for (i=0; i<v.count();i++)
-			grades [i] = v.grades[i];
-	}
-	public Boolean addGrade(String apparatus, int score) {
-		if (this.count < this.grades.length){
-			this.grades[count] = new Grade(apparatus,score);
-			return true;
-		}
-		else return false;		
-	}
-	public boolean deleteGrade(String apparatus){
-		for (int i=0;i<count;i++) {
-			if (this.grades[i].equals(apparatus))
-					return true;
-		}
-		return false;
-	}
-	
-	public double average(int score) {
-		double sum = 0;
-		if (count == 0)
-			return -1;
-		for (int i=0;i<count;i++) {
-			sum += grades[i].getScore();
-		}
-		return sum/count;
-	}
-	
-	public boolean allGradesAbove(int num1) {
-		for (int i=0;i<count;i++) {
-			if (grades[i].getScore()<num1)
-				return false;
-		}
-		return true;	
-	}
-	public boolean isBetter(Athlete v) {
-		for (int i=0;i<count;i++) {
-			
-		}
-		
+    private String name;
+    private Grade[] grades;
+    private int count;
+
+    
+    public Athlete(String name, int maxGrades) {
+        this.name = name;
+        this.grades = new Grade[maxGrades];
+        this.count = 0;
+    }
+
+    
+    public Athlete(Athlete athlete) {
+        this.name = athlete.name;
+        this.grades = new Grade[athlete.grades.length];
+        this.count = athlete.count;
+        for (int i = 0; i < athlete.count; i++) {
+            this.grades[i] = new Grade(athlete.grades[i]);
+        }
+    }
+
+    public boolean addGrade(String apparatus, double score) {
+        if (count < grades.length) {
+            grades[count++] = new Grade(apparatus, score);
+            return true;
+        }
+        return false;
+    }
+
+    public boolean deleteGrade(String apparatus) {
+        for (int i = 0; i < count; i++) {
+            if (grades[i].getApparatus().equals(apparatus)) {
+                grades[i] = grades[count - 1]; 
+                grades[count - 1] = null; 
+                count--;
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public double average() {
+        if (count == 0) return 1;
+        double sum = 0;
+        for (int i = 0; i < count; i++) {
+            sum += grades[i].getScore();
+        }
+        return sum / count;
+    }
+
+    public boolean allGradesAbove(double threshold) {
+        for (int i = 0; i < count; i++) {
+            if (grades[i].getScore() <= threshold) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public boolean isBetter(Athlete other) {
+        for (int i = 0; i < count; i++) {
+            String apparatus = grades[i].getApparatus();
+            double thisScore = grades[i].getScore();
+            boolean found = false;
+            for (int j = 0; j < other.count; j++) {
+                if (other.grades[j].getApparatus().equals(apparatus)) {
+                    found = true;
+                    if (thisScore <= other.grades[j].getScore()) {
+                        return false;
+                    }
+                    break;
+                }
+            }
+            if (!found) return false; 
+        }
+        return true;
+    }
+
+    public String getName() {
+        return name;
+    }
 }
-
-
-
-
-
-
-
 
 
 
@@ -69,31 +89,130 @@ public class Athlete {
 
 
 public class Grade {
+    private String apparatus;
+    
+    private double score;
+    public Grade(String apparatus, double score) {
+        this.apparatus = apparatus;
+        this.score = score;
+    }
+
+    public Grade(Grade grade) {
+        this.apparatus = grade.apparatus;
+        this.score = grade.score;
+    }
+
+    public String getApparatus() {
+        return apparatus;
+    }
+
+    public void setApparatus(String apparatus) {
+        this.apparatus = apparatus;
+    }
+
+    public double getScore() {
+        return score;
+    }
+
+    public void setScore(double score) {
+        this.score = score;
+    }
 	
-	public Grade() 
-		private String apparatus;
-		private int score;
-		public Grade(String apparatus, int score) {
-			this.apparatus = apparatus;
-			this.score = score;
-		}
-		
-		public Grade(Grade g) {
-			this.apparatus = apparatus;
-			this.score = score;
-		}
-		public String getApparatus(){
-			return apparatus;
-		}
-		public void setAapparatus() {
-			this.apparatus = apparatus;
-		}
-		public int getScore() {
-			return score;
-		}
-		public void setScore() {
-			this.score =score;
-		}		
 }
-		
-		
+
+
+
+
+public class Group {
+	private String name;
+    private Athlete[] athletes;
+    private int count;
+
+   
+    public Group(String name, int maxAthletes) {
+        this.name = name;
+        this.athletes = new Athlete[maxAthletes];
+        this.count = 0;
+    }
+
+    public boolean addAthlete(Athlete athlete) {
+        if (count < athletes.length) {
+            athletes[count++] = athlete;
+            return true;
+        }
+        return false;
+    }
+
+    public boolean deleteAthlete(String name) {
+        for (int i = 0; i < count; i++) {
+            if (athletes[i].getName().equals(name)) {
+                athletes[i] = athletes[count - 1]; 
+                athletes[count - 1] = null;
+                count--;
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public String getBestAthleteName() {
+        if (count == 0) return null;
+        String bestAthlete = athletes[0].getName();
+        double bestAverage = athletes[0].average();
+        for (int i = 1; i < count; i++) {
+            double average = athletes[i].average();
+            if (average > bestAverage) {
+                bestAverage = average;
+                bestAthlete = athletes[i].getName();
+            }
+        }
+        return bestAthlete;
+    }
+
+    public boolean addGrade(String athleteName, String apparatus, double score) {
+        for (int i = 0; i < count; i++) {
+            if (athletes[i].getName().equals(athleteName)) {
+                return athletes[i].addGrade(apparatus, score);
+            }
+        }
+        return false;
+    }
+}
+
+
+
+
+public class Main {
+    public static void main(String[] args) {
+    	
+        Athlete athlete1 = new Athlete("Alice", 5);
+        Athlete athlete2 = new Athlete("Bob", 5);
+
+        athlete1.addGrade("Beam", 9.5);
+        athlete1.addGrade("Floor", 9.0);
+        athlete1.addGrade("Vault", 8.5);
+        
+        athlete2.addGrade("Beam", 9.0);
+        athlete2.addGrade("Floor", 9.2);
+        athlete2.addGrade("Vault", 8.7);
+
+        boolean isBetter = athlete1.isBetter(athlete2);
+        System.out.println("Is " + athlete1.getName() + " better than " + athlete2.getName() + "? " + isBetter);
+
+        Athlete athlete1Copy = new Athlete(athlete1);
+        Athlete athlete2Copy = new Athlete(athlete2);   
+ 
+        Athlete[] athleteArray = {athlete1, athlete2, athlete1Copy, athlete2Copy};
+
+        Group group = new Group("Team A", 5);
+        group.addAthlete(athlete1);
+        group.addAthlete(athlete2);
+        
+        System.out.println("Best athlete in the group: " + group.getBestAthleteName());
+        
+        group.addGrade("Alice", "Bars", 9.4);
+        group.addGrade("Bob", "Bars", 8.9);
+        
+
+}
+(יש לי פה בעיה ואני לא יודע איך לפתור אותה)
