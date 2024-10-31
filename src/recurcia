@@ -1,0 +1,161 @@
+
+public class exs {
+    public static void sum() {
+        int n = 5; 
+        int result = sum(n);
+        System.out.println("סכום המספרים מ-1 עד " + n + " הוא: " + result);
+    }
+
+    public static int sum(int n) {
+        if (n == 1) {
+            return 1;
+        }
+        return n + sum(n - 1);
+    }
+    
+    
+    public static void factorial() {
+        int n = 5;
+        int result = factorial(n);
+        System.out.println("העצרת של " + n + " היא: " + result);
+    }
+
+    public static int factorial(int n) {
+        if (n == 0 || n == 1) {
+            return 1;
+        }
+        return n * factorial(n - 1);
+    }
+    
+    
+    public static void odd() {
+        int n = 7; 
+        int result = oddProduct(n);
+        System.out.println("מכפלת המספרים האי זוגיים מ-1 עד " + n + " היא: " + result);
+    }
+
+    public static int oddProduct(int n) {
+        if (n < 1) {
+            return 1;
+        }
+        if (n % 2 != 0) {
+            return n * oddProduct(n - 2);
+        }
+        return oddProduct(n - 1);
+    }
+    
+    
+    public static void digitCount() {
+        int n = 12345; 
+        int result = countDigits(n);
+        System.out.println("מספר הספרות ב-" + n + " הוא: " + result);
+    }
+
+    public static int countDigits(int n) {
+        if (n < 10) {
+            return 1;
+        }
+        return 1 + countDigits(n / 10);
+    }
+    
+    
+    public static void idr() {
+        int a = 20; 
+        int b = 4; 
+        int result = divide(a, b);
+        System.out.println("המנה השלמה של " + a + " ו-" + b + " היא: " + result);
+    }
+
+    public static int divide(int a, int b) {
+        if (a < b) {
+            return 0;
+        }
+        return 1 + divide(a - b, b);
+    }
+    
+    //6 לא הצלחתי
+    
+    
+    public static void MR() {
+        int x = 20; 
+        int y = 5;  
+        boolean result = isMultiple(x, y);
+        System.out.println(x + " הוא כפולה של " + y + ": " + result);
+    }
+
+    public static boolean isMultiple(int x, int y) {
+        if (x == 0) {
+            return true;
+        }
+        if (y == 0) {
+            return false;
+        }
+        if (x < y) {
+            return false;
+        }
+        return isMultiple(x - y, y);
+    }
+    
+    
+    public static void prime() {
+        int n = 13; 
+        boolean result = isPrime(n, 2);
+        System.out.println(n + " הוא מספר ראשוני: " + result);
+    }
+
+    public static boolean isPrime(int n, int divisor) {
+        if (n < 2) {
+            return false;
+        }
+        if (divisor * divisor > n) {
+            return true;
+        }
+        if (n % divisor == 0) {
+            return false;
+        }
+        return isPrime(n, divisor + 1);
+    }
+    
+    public static void EvenOdd() {
+        int n = 246;  
+        boolean result = areAllDigitsEvenOrOdd(n);
+        System.out.println("כל ספרות המספר " + n + " זוגיות או אי זוגיות: " + result);
+    }
+
+    public static boolean areAllDigitsEvenOrOdd(int n) {
+        if (n == 0) {
+            return true;
+        }
+        int lastDigit = n % 10;
+        if (lastDigit % 2 != 0) {
+            return areAllOdd(n / 10);
+        }
+        return areAllEven(n / 10);
+    }
+
+    private static boolean areAllOdd(int n) {
+        if (n == 0) {
+            return true; 
+        }
+        int lastDigit = n % 10;
+        if (lastDigit % 2 == 0) {
+            return false; 
+        }
+        return areAllOdd(n / 10);
+    }
+
+    private static boolean areAllEven(int n) {
+        if (n == 0) {
+            return true; 
+        }
+        int lastDigit = n % 10;
+        if (lastDigit % 2 != 0) {
+            return false; 
+        }
+        return areAllEven(n / 10);
+    }
+    
+
+}
+
+
